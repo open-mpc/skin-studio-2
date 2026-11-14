@@ -10,8 +10,11 @@ meters, value pictures or mode artwork.
 ## Get it
 
 Download `Skin Studio 2-<version>-win.zip` from [Releases](../../releases), unzip, run `Skin Studio 2.exe`. The build is not
-code-signed, so Windows SmartScreen will warn: *More info → Run anyway*. macOS and Linux: build from source (below);
-those builds are untested.
+code-signed, so Windows SmartScreen will warn: *More info → Run anyway*.
+
+**macOS and Linux (untested).** The release also has `…-mac.zip` (Intel), `…-arm64-mac.zip` (Apple silicon) and a Linux
+`.tar.gz`. They are built but have never been run. The Mac apps are unsigned: right-click → Open the first time, or run
+`xattr -cr "Skin Studio 2.app"`. On Linux, unpack and run `mpc-skin-studio-2`. Please report what happens.
 
 ## What you can do
 
