@@ -1,0 +1,52 @@
+{
+    "pageData": {
+        "version": 1,
+        "componentDefinitions": {
+            "version": 2,
+            "localComponentDefinitions": [
+                {
+                    "key": "Knob",
+                    "value": {
+                        "actions": [
+                            "turn"
+                        ],
+                        "componentsData": []
+                    }
+                }
+            ]
+        },
+        "info": {
+            "version": 1,
+            "type": "CompleteDescription"
+        },
+        "tabs": [
+            {
+                "tabName": "MAIN",
+                "fnKeyIndex": 0,
+                "fnKeySubIndex": 0,
+                "componentName": "PAGE0",
+                "componentDefinition": {
+                    "componentsData": [
+                        {
+                            "componentData": {
+                                "name": "CUTOFF",
+                                "type": "Knob"
+                            },
+                            "bounds": {
+                                "bounds": "1200 600 120 60"
+                            },
+                            "handle remapping": {
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 5"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

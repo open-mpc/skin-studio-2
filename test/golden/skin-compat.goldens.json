@@ -1,0 +1,72 @@
+{
+  "dexed-clean": {
+    "gens": [
+      "3.x"
+    ],
+    "why": [
+      "TUI:data:(local widget) version 1 has field(s) 2.15.1 does not use: actions, backgroundColour, curveType, envelopeName, envelopeStyle, envelopeType, fillColour, forceCurveShape, forceHideShapeHandles, handleArrowFillColourOnPressed, handleArrowLineColourOnPressed, handleFillColour, handleFillColourOnPressed, handleHeight, handleLineColour, handleLineColourOnPressed, handleLineWidth, handleLineWidthOnPressed, handleShape, handleTextColour, handleTextColourOnPressed, handleWidth, highlightColour, lineColour, lineWidth, overlayType, pitchEnvelopeAttackHandle, pitchEnvelopeDecayHandle, pitchEnvelopeDelayHandle, pitchEnvelopeLevel1Handle, pitchEnvelopeLevel2Handle, pitchEnvelopeLevel3Handle, pitchEnvelopeLevel5Handle, pitchEnvelopeReleaseHandle, pitchEnvelopeSustainHandle, polarityType, scaleColour, scaleType, showMinusSign",
+      "TUI:data:Button version 2 (2.15.1 uses 1)",
+      "TUI:data:Knob version 3 (2.15.1 uses 1, 2)",
+      "TUI:data:Knob version 4 (2.15.1 uses 1, 2)",
+      "TUI:pageData version 1 has field(s) 2.15.1 does not use: replacementStrings"
+    ]
+  },
+  "mpc-vst-acid": {
+    "gens": [
+      "3.x"
+    ],
+    "why": [
+      "TUI:data:(local widget) version 1 has field(s) 2.15.1 does not use: actions, overlayType, polarityType, scaleType, showMinusSign, withNumbers",
+      "TUI:data:Button version 2 (2.15.1 uses 1)",
+      "TUI:data:Knob version 3 (2.15.1 uses 1, 2)",
+      "TUI:pageData version 1 has field(s) 2.15.1 does not use: replacementStrings"
+    ]
+  },
+  "mpc-vst-cratedigger": {
+    "gens": [
+      "3.x"
+    ],
+    "why": [
+      "TUI:data:(local widget) version 1 has field(s) 2.15.1 does not use: actions, overlayType, polarityType, scaleType, showMinusSign",
+      "TUI:data:Knob version 3 (2.15.1 uses 1, 2)",
+      "TUI:pageData version 1 has field(s) 2.15.1 does not use: replacementStrings"
+    ]
+  },
+  "mpc-vst-dx7": {
+    "gens": [
+      "3.x"
+    ],
+    "why": [
+      "TUI:data:(local widget) version 1 has field(s) 2.15.1 does not use: actions, backgroundColour, curveType, envelopeName, envelopeStyle, envelopeType, fillColour, forceCurveShape, forceHideShapeHandles, handleArrowFillColourOnPressed, handleArrowLineColourOnPressed, handleFillColour, handleFillColourOnPressed, handleHeight, handleLineColour, handleLineColourOnPressed, handleLineWidth, handleLineWidthOnPressed, handleShape, handleTextColour, handleTextColourOnPressed, handleWidth, highlightColour, lineColour, lineWidth, overlayType, pitchEnvelopeAttackHandle, pitchEnvelopeDecayHandle, pitchEnvelopeDelayHandle, pitchEnvelopeLevel1Handle, pitchEnvelopeLevel2Handle, pitchEnvelopeLevel3Handle, pitchEnvelopeLevel5Handle, pitchEnvelopeReleaseHandle, pitchEnvelopeSustainHandle, polarityType, scaleColour, scaleType, showMinusSign",
+      "TUI:data:Button version 2 (2.15.1 uses 1)",
+      "TUI:data:Knob version 3 (2.15.1 uses 1, 2)",
+      "TUI:data:Knob version 4 (2.15.1 uses 1, 2)",
+      "TUI:pageData version 1 has field(s) 2.15.1 does not use: replacementStrings"
+    ]
+  },
+  "mpc-vst-welle": {
+    "gens": [
+      "3.x"
+    ],
+    "why": [
+      "TUI:data:(local widget) version 1 has field(s) 2.15.1 does not use: actions, overlayType, polarityType, scaleType, showMinusSign, withNumbers",
+      "TUI:data:Button version 2 (2.15.1 uses 1)",
+      "TUI:data:Knob version 3 (2.15.1 uses 1, 2)",
+      "TUI:pageData version 1 has field(s) 2.15.1 does not use: replacementStrings"
+    ]
+  },
+  "synthetic-edge": {
+    "gens": [
+      "2.x",
+      "3.x"
+    ],
+    "why": []
+  },
+  "synthetic-opts": {
+    "gens": [
+      "2.x",
+      "3.x"
+    ],
+    "why": []
+  }
+}

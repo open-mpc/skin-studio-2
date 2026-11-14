@@ -1,0 +1,7 @@
+{"params":[
+ {"index":0,"name":"Sync","kind":"bool","choices":["Off","On"],"default":0.0,"display":"Off"},
+ {"index":1,"name":"Division","kind":"choice","choices":["1/4","1/8","1/16"],"default":1.0,"display":"1/8"},
+ {"index":2,"name":"Time","kind":"float","default":0.3,"display":"300 ms"},
+ {"index":3,"name":"Feedback","kind":"float","default":0.4,"display":"40 %"},
+ {"index":4,"name":"Mix","kind":"float","default":0.5,"display":"50 %"}
+]}

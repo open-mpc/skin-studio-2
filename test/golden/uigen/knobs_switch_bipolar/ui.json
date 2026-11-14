@@ -1,0 +1,6 @@
+{ "pages": [ { "name": "FILTER", "controls": [
+  { "param": "Cutoff", "widget": "knob" },
+  { "param": "Resonance", "widget": "knob" },
+  { "param": "Filter Mode", "widget": "switch" },
+  { "param": "Env Amount", "widget": "knob", "polarity": "bipolar" }
+] } ] }

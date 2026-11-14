@@ -1,0 +1,15 @@
+{
+  "auto_no_ui": {},
+  "fader_menu_visiblewhen": {
+    "fader_h_uni.png": "a931e9761afc115d",
+    "knob_uni.png": "1956c62ec4d04e59",
+    "toggle_off.png": "1bdaac074a7056c7",
+    "toggle_on.png": "18aee289a919366a"
+  },
+  "knobs_switch_bipolar": {
+    "knob_bi.png": "26ee4eefaf86ec59",
+    "knob_uni.png": "1956c62ec4d04e59",
+    "seg3_off.png": "9b16737f125a9735",
+    "seg3_on.png": "4ed57c2d04e3cb16"
+  }
+}

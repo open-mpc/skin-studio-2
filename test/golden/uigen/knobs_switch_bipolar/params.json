@@ -1,0 +1,6 @@
+{"params":[
+ {"index":0,"name":"Cutoff","kind":"float","default":0.6,"display":"6.0 kHz"},
+ {"index":1,"name":"Resonance","kind":"float","default":0.2,"display":"20 %"},
+ {"index":2,"name":"Env Amount","kind":"float","default":0.5,"display":"0"},
+ {"index":3,"name":"Filter Mode","kind":"choice","choices":["LP","BP","HP"],"default":0.0,"display":"LP"}
+]}

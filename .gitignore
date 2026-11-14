@@ -1,0 +1,20 @@
+node_modules/
+*.log
+
+# Electron bundle outputs
+electron/main.cjs
+electron/preload.cjs
+electron/renderer/app.js
+
+# Hardware-test embedded Akai kit art (not committed)
+hardware-test/Plugin Skins/*.png
+hardware-test/preview.svg
+
+# Packaging output
+dist/
+dist/
+
+# Private working notes and device-test scratch (never published)
+HANDOFF.md
+hardware-test/
+hardware-test-v2/

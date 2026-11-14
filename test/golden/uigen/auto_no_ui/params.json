@@ -1,0 +1,8 @@
+{"params":[
+ {"index":0,"name":"Attack","kind":"float","default":0.1,"display":"10 ms"},
+ {"index":1,"name":"Decay","kind":"float","default":0.3,"display":"300 ms"},
+ {"index":2,"name":"Sustain","kind":"float","default":0.8,"display":"80 %"},
+ {"index":3,"name":"Release","kind":"float","default":0.4,"display":"400 ms"},
+ {"index":4,"name":"Wave","kind":"choice","choices":["Saw","Square","Sine"],"default":0.0,"display":"Saw"},
+ {"index":5,"name":"Volume","kind":"float","default":0.7,"display":"-6 dB"}
+]}

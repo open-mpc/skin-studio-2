@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Skin Studio 2</title>
+  <style>
+    :root {
+      --bg:#0e0f11; --panel:#17181b; --raised:#212327; --hover:#2a2c31; --line:#2c2e33; --line2:#3a3d44;
+      --text:#e7e8ea; --muted:#8d9098; --faint:#5d6068; --accent:#d31145; --sel:#4c9aff; --ok:#6fbf73; --warn:#e0b050; --err:#ff6b6b;
+    }
+    * { box-sizing:border-box; }
+    html, body { height:100%; }
+    body { margin:0; font:12px/1.35 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; background:var(--bg); color:var(--text); display:flex; flex-direction:column; overflow:hidden; user-select:none; }
+    h2 { font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); margin:0 0 8px; }
+    h2 small { text-transform:none; letter-spacing:0; font-weight:400; color:var(--faint); margin-left:4px; }
+    button, select, input { font:inherit; color:var(--text); }
+    button { background:var(--raised); border:1px solid var(--line); border-radius:5px; padding:5px 10px; cursor:pointer; white-space:nowrap; }
+    button:hover:not(:disabled) { background:var(--hover); border-color:var(--line2); }
+    button:disabled { opacity:.4; cursor:default; }
+    button.primary { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
+    button.primary:hover:not(:disabled) { background:#e52a5c; border-color:#e52a5c; }
+    button.ghost { background:transparent; border-color:transparent; }
+    button.icon { padding:5px 8px; min-width:30px; font-size:14px; line-height:1; }
+    button.on { border-color:var(--sel); color:#fff; background:#1d2a3d; }
+    select, input[type=text], input[type=number], input:not([type]) { background:#111215; border:1px solid var(--line); border-radius:5px; padding:5px 7px; min-width:0; user-select:text; }
+    select:hover, input:hover { border-color:var(--line2); }
+    :focus-visible { outline:1.5px solid var(--sel); outline-offset:0; }
+    input[type=color] { padding:0; height:24px; width:44px; border:1px solid var(--line); border-radius:4px; background:none; cursor:pointer; }
+    input[type=range] { flex:1; accent-color:var(--sel); }
+    .sep { width:1px; align-self:stretch; background:var(--line); margin:2px 4px; }
+    .spacer { flex:1; }
+
+    /* top bar */
+    #top { display:flex; align-items:center; gap:6px; padding:7px 12px; background:var(--panel); border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:baseline; gap:8px; margin-right:10px; }
+    .brand b { font-size:13px; letter-spacing:.01em; }
+    .brand b i { font-style:normal; color:var(--accent); }
+    #fileName { color:var(--muted); max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #dirty { color:var(--warn); font-size:10px; }
+    .check { display:flex; align-items:center; gap:5px; color:var(--muted); cursor:pointer; padding:0 4px; }
+    .check input { accent-color:var(--sel); margin:0; }
+    #top label.zoom { color:var(--muted); display:flex; align-items:center; gap:5px; }
+
+    /* layout */
+    main { flex:1; display:flex; min-height:0; position:relative; }
+    aside { background:var(--panel); display:flex; flex-direction:column; min-height:0; }
+    #left { width:212px; border-right:1px solid var(--line); }
+    #right { width:340px; border-left:1px solid var(--line); }
+    aside section { padding:12px; border-bottom:1px solid var(--line); }
+    aside section.grow { flex:1; min-height:0; display:flex; flex-direction:column; border-bottom:0; }
+    #center { flex:1; min-width:0; display:flex; flex-direction:column; }
+
+    /* palette + layers */
+    #palette { display:grid; grid-template-columns:1fr 1fr; gap:5px; margin-bottom:8px; }
+    #palette button { display:flex; align-items:center; gap:7px; text-align:left; padding:6px 8px; }
+    .gl { display:inline-flex; width:16px; justify-content:center; color:var(--muted); font-size:12px; flex:none; }
+    #layers { list-style:none; margin:0 0 8px; padding:0; overflow:auto; flex:1; border:1px solid var(--line); border-radius:5px; background:#111215; }
+    #layers li { display:flex; align-items:center; gap:7px; padding:5px 8px; cursor:pointer; border-bottom:1px solid #1b1c20; }
+    #layers li:hover { background:var(--raised); }
+    #layers li.sel { background:#1d2a3d; box-shadow:inset 2px 0 0 var(--sel); }
+    #layers li span.nm { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #layers li small, .cond { color:var(--faint); font-size:10.5px; }
+    #layers .none { color:var(--faint); padding:14px 10px; cursor:default; }
+    .row { display:flex; gap:6px; align-items:center; margin:6px 0; }
+    .row > label { width:82px; flex:none; color:var(--muted); }
+    .row select, .row input[type=text], .row input[type=number], .row input:not([type]) { flex:1; }
+    .row button { flex:none; }
+    .row.fill button { flex:1; }
+
+    /* tabs + stage */
+    #tabbar { display:flex; align-items:flex-end; gap:2px; padding:8px 12px 0; background:var(--panel); border-bottom:1px solid var(--line); min-height:38px; overflow-x:auto; }
+    #tabbar .tab { padding:6px 14px; border:1px solid transparent; border-bottom:0; border-radius:6px 6px 0 0; color:var(--muted); cursor:pointer; white-space:nowrap; position:relative; top:1px; }
+    #tabbar .tab:hover { color:var(--text); background:var(--raised); }
+    #tabbar .tab.on { background:var(--bg); border-color:var(--line); color:#fff; font-weight:600; }
+    #tabbar .tab input { width:110px; padding:1px 4px; }
+    #tabbar .add { padding:5px 9px; margin:0 0 4px 4px; }
+    #tabbar .mode { margin:0 0 5px auto; display:flex; align-items:center; gap:6px; color:var(--muted); }
+    .seg { display:inline-flex; border:1px solid var(--line); border-radius:5px; overflow:hidden; }
+    .seg button { border:0; border-radius:0; padding:4px 10px; background:transparent; color:var(--muted); }
+    .seg button.on { background:var(--raised); color:#fff; }
+    #stage { flex:1; overflow:auto; display:flex; padding:24px; background:
+      radial-gradient(circle at 1px 1px, #1a1b1f 1px, transparent 0) 0 0 / 16px 16px, var(--bg); }
+    #canvas { position:relative; margin:auto; flex:none; line-height:0; box-shadow:0 0 0 1px #000, 0 10px 40px rgba(0,0,0,.6); border-radius:3px; }
+    #canvas svg { width:100%; height:auto; display:block; border-radius:3px; }
+    #overlay { position:absolute; inset:0; line-height:1.2; }
+    #overlay .slot, #overlay .box { position:absolute; border-radius:3px; }
+    #overlay .slot { border:1px dashed transparent; cursor:pointer; }
+    .outlines #overlay .slot { border-color:rgba(255,255,255,.09); }
+    #overlay .slot:hover { border-color:rgba(255,255,255,.35); background:rgba(255,255,255,.03); }
+    #overlay .slot.sel { border:1px dashed var(--sel); background:rgba(76,154,255,.08); }
+    #overlay .slot.target { border:1.5px solid var(--sel); background:rgba(76,154,255,.18); }
+    #overlay .box { border:1px solid transparent; cursor:move; }
+    .outlines #overlay .box { border-color:rgba(255,255,255,.13); }
+    #overlay .box:hover { border-color:rgba(76,154,255,.6); }
+    #overlay .box.sel { border:1.5px solid var(--sel); background:rgba(76,154,255,.07); }
+    #overlay .box.target { border:1.5px solid var(--sel); background:rgba(76,154,255,.18); }
+    #overlay .box.msel { border-style:dashed; }
+    #overlay .rband { position:absolute; border:1px solid var(--sel); background:rgba(76,154,255,.12); pointer-events:none; z-index:6; }
+    #overlay .box.dragging { background:rgba(76,154,255,.22); z-index:5; }
+    #overlay .box.hiddenctl { border-style:dashed; }
+    #overlay .tag { position:absolute; left:0; bottom:100%; font-size:10px; padding:1px 5px; background:var(--sel); color:#fff; border-radius:3px 3px 0 0; white-space:nowrap; pointer-events:none; }
+    #overlay .qtag { position:absolute; right:0; bottom:100%; margin-bottom:1px; font-size:10px; padding:0 4px; border-radius:3px; background:rgba(20,22,26,.85); color:#9cc3ff; border:1px solid #33507a; pointer-events:none; }
+    #overlay .condtag { position:absolute; left:3px; bottom:2px; font-size:10px; padding:0 4px; border-radius:3px; background:rgba(20,22,26,.85); color:var(--warn); pointer-events:none; white-space:nowrap; }
+    #overlay .handle { position:absolute; right:-5px; bottom:-5px; width:10px; height:10px; background:#fff; border:1.5px solid var(--sel); border-radius:2px; cursor:nwse-resize; }
+    #overlay .qrect { position:absolute; border:1px dashed rgba(90,160,255,.55); pointer-events:none; }
+    #status { display:flex; gap:14px; padding:5px 12px; background:var(--panel); border-top:1px solid var(--line); color:var(--muted); min-height:26px; }
+    #status #msg.err { color:var(--err); }
+    #status #hint { margin-left:auto; color:var(--faint); }
+
+    /* right panels */
+    #paneltabs { display:flex; border-bottom:1px solid var(--line); padding:0 6px; flex:none; }
+    #paneltabs button { background:none; border:0; border-bottom:2px solid transparent; border-radius:0; padding:9px 6px 7px; color:var(--muted); flex:1; }
+    #paneltabs button:hover { color:var(--text); background:none; }
+    #paneltabs button.on { color:#fff; border-bottom-color:var(--accent); }
+    .badge[hidden] { display:none; }
+    .badge { display:inline-block; min-width:16px; padding:0 4px; border-radius:8px; background:var(--warn); color:#111; font-size:10px; font-weight:700; text-align:center; margin-left:3px; }
+    .panel { flex:1; overflow:auto; padding:12px; }
+    .panel h2:not(:first-child) { margin-top:16px; padding-top:12px; border-top:1px solid var(--line); }
+    .note { color:var(--muted); margin:6px 0; line-height:1.45; }
+    .note.warn { color:var(--warn); } .note.ok { color:var(--ok); }
+    .empty { color:var(--faint); padding:18px 6px; text-align:center; line-height:1.5; }
+    .qgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin:8px 0; }
+    .qgrid div { background:#111215; border:1px solid var(--line); border-radius:5px; padding:4px; }
+    .qgrid small { color:var(--muted); display:block; margin-bottom:2px; }
+    .qgrid select { width:100%; padding:3px 2px; border:0; background:transparent; }
+    .item { display:flex; align-items:center; gap:6px; padding:5px 0; border-bottom:1px solid #1e2024; }
+    .item .nm { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .item.sub { padding:0 0 6px 8px; flex-wrap:wrap; border-bottom:1px solid #1e2024; }
+    .item small { color:var(--faint); }
+    .item input.xy { width:46px; flex:none; padding:3px 4px; }
+    .issue { display:flex; gap:8px; padding:7px 8px; margin-bottom:5px; border-radius:5px; background:#221d12; border:1px solid #3d331b; color:#ecd9a8; line-height:1.4; user-select:text; }
+
+    /* start screen */
+    #start { position:absolute; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; z-index:20; overflow:auto; }
+    #start[hidden] { display:none; }
+    .startbox { width:820px; max-width:92%; padding:24px 0; }
+    .startbox h1 { font-size:22px; font-weight:600; margin:0 0 4px; }
+    .startbox h1 i { font-style:normal; color:var(--accent); }
+    .startbox p.lead { color:var(--muted); margin:0 0 22px; font-size:13px; }
+    .cols { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+    .card { display:block; width:100%; text-align:left; white-space:normal; padding:10px 12px; margin-bottom:7px; border-radius:7px; }
+    .card b { display:block; font-size:12.5px; margin-bottom:2px; }
+    .card span { color:var(--muted); line-height:1.4; display:block; }
+    .recent { color:var(--muted); padding:4px 0; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; direction:rtl; text-align:left; }
+    .recent:hover { color:#fff; }
+
+    /* popup menu, dialogs, toast */
+    #menu { position:fixed; z-index:50; background:#1d1f23; border:1px solid var(--line2); border-radius:7px; padding:4px; min-width:210px; box-shadow:0 12px 36px rgba(0,0,0,.6); }
+    #menu[hidden] { display:none; }
+    #menu div.mi { padding:6px 10px; border-radius:4px; cursor:pointer; display:flex; gap:16px; }
+    #menu div.mi:hover { background:var(--sel); color:#fff; }
+    #menu div.mi.dis { opacity:.4; pointer-events:none; }
+    #menu div.mi small { margin-left:auto; color:var(--muted); }
+    #menu div.mi:hover small { color:#dbe9ff; }
+    #menu hr { border:0; border-top:1px solid var(--line); margin:4px 2px; }
+    dialog { background:var(--panel); color:var(--text); border:1px solid var(--line2); border-radius:9px; width:440px; padding:18px; box-shadow:0 20px 60px rgba(0,0,0,.7); }
+    dialog::backdrop { background:rgba(0,0,0,.55); }
+    dialog h3 { margin:0 0 6px; font-size:14px; }
+    dialog .btns { display:flex; justify-content:flex-end; gap:8px; margin-top:16px; }
+    #toast { position:fixed; left:50%; bottom:44px; transform:translateX(-50%); background:#3a1620; border:1px solid #7a2238; color:#ffd5dd; padding:9px 14px; border-radius:7px; z-index:60; max-width:70%; box-shadow:0 8px 30px rgba(0,0,0,.5); user-select:text; }
+    #toast[hidden] { display:none; }
+    ::-webkit-scrollbar { width:10px; height:10px; } ::-webkit-scrollbar-thumb { background:#2c2e33; border-radius:5px; border:2px solid transparent; background-clip:content-box; } ::-webkit-scrollbar-thumb:hover { background-color:#444750; }
+  </style>
+</head>
+<body>
+  <header id="top">
+    <div class="brand"><b>Skin Studio <i>2</i></b><span id="fileName"></span><span id="dirty" hidden title="Unsaved changes">●</span></div>
+    <button id="mNew" title="Start from one of Akai's example plugins">New ▾</button>
+    <button id="mOpen" title="Open a project, an existing skin or a parameter file">Open ▾</button>
+    <button id="save" title="Save the project (Ctrl+S)">Save</button>
+    <span class="sep"></span>
+    <button id="undo" class="icon" title="Undo (Ctrl+Z)">↶</button>
+    <button id="redo" class="icon" title="Redo (Ctrl+Shift+Z)">↷</button>
+    <span class="sep"></span>
+    <label class="check" title="Show which Q-Link knob drives each control, and the Q-Link focus columns (Ctrl+L)"><input type="checkbox" id="vQ" /> Q-Links</label>
+    <label class="check" title="Outline every control and empty slot (Ctrl+H)"><input type="checkbox" id="vO" /> Outlines</label>
+    <label class="zoom">Zoom <select id="zoom"><option value="fit">Fit</option><option value="0.5">50%</option><option value="0.75">75%</option><option value="1">100%</option><option value="1.5">150%</option></select></label>
+    <span class="spacer"></span>
+    <button id="mShare" title="Layout SVG for Inkscape/Penpot, and multi-interface skin sets">Export ▾</button>
+    <button id="build" class="primary" title="Write the Plugin Skins folder (Ctrl+B)">Build skin…</button>
+    <button id="install" title="Send the skin to a connected MPC or Force (Ctrl+I)">Install to MPC…</button>
+  </header>
+  <main>
+    <aside id="left">
+      <section>
+        <h2>Add control</h2>
+        <div id="palette"></div>
+        <div class="row fill"><button id="bgSet" title="A picture behind the whole page">Background…</button><button id="placeImg" title="A logo or panel picture placed on the page">Image…</button></div>
+      </section>
+      <section class="grow">
+        <h2>On this page</h2>
+        <ol id="layers"></ol>
+        <div class="row fill" style="margin:0"><button id="dup" title="Duplicate the selected control (Ctrl+D)">Duplicate</button><button id="del" title="Delete the selected control (Del)">Delete</button></div>
+      </section>
+    </aside>
+    <section id="center">
+      <nav id="tabbar"></nav>
+      <div id="stage"></div>
+      <div id="status"><span id="msg">Ready.</span><span id="hint"></span></div>
+    </section>
+    <aside id="right">
+      <nav id="paneltabs">
+        <button data-p="inspect">Inspect</button>
+        <button data-p="qlinks">Q-Links</button>
+        <button data-p="colours">Colours</button>
+        <button data-p="images">Images</button>
+        <button data-p="params">Params</button>
+        <button data-p="checks">Checks<span id="checkCount" class="badge" hidden></span></button>
+      </nav>
+      <div class="panel" id="panel"></div>
+    </aside>
+    <div id="start" hidden></div>
+  </main>
+  <div id="menu" hidden></div>
+  <div id="toast" hidden></div>
+  <input type="file" id="fileIn" style="display:none" />
+  <dialog id="ask"><h3 id="askTitle"></h3><div id="askBody"></div><div class="btns"><button id="askCancel">Cancel</button><button id="askOk" class="primary">OK</button></div></dialog>
+  <dialog id="dlg"><h3>Install skin to MPC</h3>
+    <p class="note">Replaces only the chosen plugin's <b>Plugin Skins</b> folder.</p>
+    <div class="row"><label>Device IP</label><input id="host" placeholder="192.168.x.x" /><button id="scan">Scan</button></div>
+    <div class="row"><label>Plugin</label><select id="plugin"></select></div>
+    <p class="note warn">MPC caches skins: restart the MPC app afterwards — this loses any unsaved project on the device. On devices with Plugin Manager, a managed plugin may be restored to its original.</p>
+    <div id="dlgMsg" class="note"></div>
+    <div class="btns"><button id="doRestart">Restart MPC app…</button><span class="spacer"></span><button id="closeDlg">Close</button><button id="doInstall" class="primary">Install</button></div>
+  </dialog>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

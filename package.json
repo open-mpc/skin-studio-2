@@ -1,0 +1,70 @@
+{
+  "name": "mpc-skin-studio-2",
+  "version": "0.1.0-beta.1",
+  "private": false,
+  "description": "Skin Studio 2 \u2014 native MPC plugin skin designer on the Akai SDK (clean TypeScript rebuild of v1).",
+  "author": "sd88me",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "test:golden": "tsx test/skinCheck.golden.ts",
+    "freeze:goldens": "bash scripts/freeze-goldens.sh",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx test/all.ts",
+    "app:bundle": "esbuild electron/main.ts electron/preload.ts --bundle --platform=node --format=cjs --outdir=electron --out-extension:.js=.cjs --external:electron && esbuild electron/renderer/app.ts --bundle --format=esm --outfile=electron/renderer/app.js",
+    "app": "npm run app:bundle && electron .",
+    "dist:dir": "npm run app:bundle && electron-builder --dir",
+    "dist": "npm run app:bundle && electron-builder",
+    "dist:all": "npm run app:bundle && electron-builder -mwl"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "esbuild": "^0.24.2",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "org.openmpc.skin-studio-2",
+    "productName": "Skin Studio 2",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build-resources"
+    },
+    "files": [
+      "electron/main.cjs",
+      "electron/preload.cjs",
+      "electron/renderer/index.html",
+      "electron/renderer/app.js",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.cjs"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.music"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "AudioVideo"
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-mpc/skin-studio-2.git"
+  }
+}

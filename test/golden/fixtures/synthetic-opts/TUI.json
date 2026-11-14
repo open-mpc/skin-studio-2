@@ -1,0 +1,80 @@
+{
+    "pageData": {
+        "version": 1,
+        "componentDefinitions": {
+            "version": 2,
+            "localComponentDefinitions": [
+                {
+                    "key": "Seg",
+                    "value": {
+                        "actions": [
+                            "tap"
+                        ],
+                        "componentsData": [
+                            {
+                                "componentData": {
+                                    "type": "Button",
+                                    "data": {
+                                        "numButtonsInGroup": 4,
+                                        "buttonId": 0
+                                    }
+                                }
+                            },
+                            {
+                                "componentData": {
+                                    "type": "Button",
+                                    "data": {
+                                        "numButtonsInGroup": 4,
+                                        "buttonId": 1
+                                    }
+                                }
+                            },
+                            {
+                                "componentData": {
+                                    "type": "Button",
+                                    "data": {
+                                        "numButtonsInGroup": 4,
+                                        "buttonId": 3
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "info": {
+            "version": 1,
+            "type": "CompleteDescription"
+        },
+        "tabs": [
+            {
+                "tabName": "MAIN",
+                "fnKeyIndex": 0,
+                "fnKeySubIndex": 0,
+                "componentName": "PAGE0",
+                "componentDefinition": {
+                    "componentsData": [
+                        {
+                            "componentData": {
+                                "name": "MODE",
+                                "type": "Seg"
+                            },
+                            "bounds": {
+                                "bounds": "100 100 200 60"
+                            },
+                            "handle remapping": {
+                                "map": [
+                                    {
+                                        "key": "Data",
+                                        "value": "Parameter 7"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "theme": "mpc-red",
+  "manifestSha256": "352043eae59d74c4bc4557ff8f517b9114bca2f72ec4565342526fba82f36987",
+  "assets": {
+    "button_off.png": "737c83abcea7d6283ab0009e7bc805b06ac314d28ff6114ff164dd25f3617500",
+    "button_on.png": "20b9168db759713f08d8b03b0a70fb2fab8d1ed22251450b4de4dc302daccc59",
+    "fader_h_bi.png": "cb79fda29833290823e06ae25a7879ac3544831674706c172b77799ccf4db5bd",
+    "fader_h_uni.png": "a931e9761afc115db75f4b88326f893ff7cb8b5332df2be082537b3a03a82aac",
+    "fader_v_bi.png": "a43a6f2461b0edcb602707012b40d24c2d2aed83deaa6eadd4e4f08eba92f39b",
+    "fader_v_uni.png": "6d17edca399f0af15c5162d22878f3e9d0c5fa1358a81b4ab3ae71cfcf479f3f",
+    "knob_bi.png": "26ee4eefaf86ec595a04e8c2cade1746e7468304db53cb04eb4c83f696027940",
+    "knob_small_bi.png": "a7b175dc622089f35917af0ec4da8acd817eba2ef3069fd75c6b1755f7f6b606",
+    "knob_small_uni.png": "18795fddabab0d8628c03a6f9a1aec9cc52ecb0ecc4e40355820544d08711b1d",
+    "knob_uni.png": "1956c62ec4d04e59bb6ffcbc7dc4c9eb26ef9fc42da40cd831811d587ea10fee",
+    "seg2_off.png": "2546216117011f4a0bdbeaa43df68831bb7b34f7c7df20501800012435c9ddde",
+    "seg2_on.png": "943ab1047ec4d5b33259d473b4033ab15b936922d3f33334742d2974541d4797",
+    "seg3_off.png": "9b16737f125a97353f95b84ab891e4b6971e63545398e40cc3201c19f827eecf",
+    "seg3_on.png": "4ed57c2d04e3cb16670ce799e45c10d8ff9e435810c7ec0ca251d871cb3f785d",
+    "seg4_off.png": "3849f82beffffc0e3aed801bdf6375af90f9f415ec4897f1e9fcbb706e2aed2b",
+    "seg4_on.png": "4c9bedafa4b032d1e264c2d429ee3e125f640530d05683af289ed3d61a2c2a52",
+    "toggle_off.png": "1bdaac074a7056c7154cc4a9f90ca0cfd30dabefde8eea874a7c4b558720b007",
+    "toggle_on.png": "18aee289a919366a168712abd393f8ea3c6ae77b1f50b16ce54175c7ca97af42"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "theme": "mpc-red",
+  "assets": {
+    "knob_uni": [
+      "knob_uni.png",
+      127,
+      [
+        90,
+        90
+      ]
+    ],
+    "knob_bi": [
+      "knob_bi.png",
+      127,
+      [
+        90,
+        90
+      ]
+    ],
+    "knob_small_uni": [
+      "knob_small_uni.png",
+      127,
+      [
+        56,
+        56
+      ]
+    ],
+    "knob_small_bi": [
+      "knob_small_bi.png",
+      127,
+      [
+        56,
+        56
+      ]
+    ],
+    "fader_h_uni": [
+      "fader_h_uni.png",
+      127,
+      [
+        248,
+        36
+      ]
+    ],
+    "fader_h_bi": [
+      "fader_h_bi.png",
+      127,
+      [
+        248,
+        36
+      ]
+    ],
+    "fader_v_uni": [
+      "fader_v_uni.png",
+      127,
+      [
+        36,
+        160
+      ]
+    ],
+    "fader_v_bi": [
+      "fader_v_bi.png",
+      127,
+      [
+        36,
+        160
+      ]
+    ],
+    "toggle_on": [
+      "toggle_on.png",
+      1,
+      [
+        64,
+        32
+      ]
+    ],
+    "toggle_off": [
+      "toggle_off.png",
+      1,
+      [
+        64,
+        32
+      ]
+    ],
+    "button_on": [
+      "button_on.png",
+      1,
+      [
+        120,
+        44
+      ]
+    ],
+    "button_off": [
+      "button_off.png",
+      1,
+      [
+        120,
+        44
+      ]
+    ],
+    "seg2_on": [
+      "seg2_on.png",
+      1,
+      [
+        122,
+        40
+      ]
+    ],
+    "seg2_off": [
+      "seg2_off.png",
+      1,
+      [
+        122,
+        40
+      ]
+    ],
+    "seg3_on": [
+      "seg3_on.png",
+      1,
+      [
+        80,
+        40
+      ]
+    ],
+    "seg3_off": [
+      "seg3_off.png",
+      1,
+      [
+        80,
+        40
+      ]
+    ],
+    "seg4_on": [
+      "seg4_on.png",
+      1,
+      [
+        58,
+        40
+      ]
+    ],
+    "seg4_off": [
+      "seg4_off.png",
+      1,
+      [
+        58,
+        40
+      ]
+    ]
+  }
+}
