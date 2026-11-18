@@ -1,6 +1,6 @@
 {
   "name": "mpc-skin-studio-2",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "private": false,
   "description": "Skin Studio 2 \u2014 native MPC plugin skin designer on the Akai SDK (clean TypeScript rebuild of v1).",
   "author": "sd88me",
