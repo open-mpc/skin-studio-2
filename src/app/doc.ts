@@ -689,6 +689,42 @@ export function setStripForAll(doc: Doc, widget: "knob" | "fader", asset: string
   return d;
 }
 
+// ---- panel picture import (EXTENSION; finder in core/panelDetect) --------------------------------
+/**
+ * A picture of a hardware panel (already fitted into 1280×628) as the page background, and a knob on each knob found:
+ * the knob picture sized and centred on the panel's control, bound to the next parameters not yet on the page (ranged
+ * ones: choice and text parameters are skipped). Names and values are hidden unless `labels` (the panel prints its
+ * own). Knobs beyond the free parameters are left out and counted. One edit (one undo step).
+ */
+export function importPanel(doc: Doc, page: number, pngBase64: string, knobs: { cx: number; cy: number; r: number }[], labels = false):
+  { doc: Doc; placed: number; unbound: number; asset: string } {
+  if (!doc.pages[page]) throw new Error("no such page");
+  if (doc.pages[page].controls.some((c) => c.full === "repeat")) throw new Error("a strip page cannot take a panel picture");
+  let name = "panel", i = 2;
+  while (doc.assets?.[name]) name = `panel_${i++}`;
+  let d = addAsset(doc, name, pngBase64, 1, 1280, 628);
+  d = setBackground(d, page, name);
+  d = clone(makeFree(d, page));
+  const pg = d.pages[page];
+  const used = new Set(pg.controls.map((c) => c.param).filter(Boolean));
+  const free = d.params.filter((p) => !used.has(p.name) && !p.choices?.length && p.kind !== "string" && p.kind !== "bool");
+  while (pg.controls.length < SLOTS_PER_PAGE) pg.controls.push({ empty: true });
+  let placed = 0;
+  for (const k of knobs) {
+    const p = free[placed];
+    if (!p) break;
+    const size = Math.max(24, Math.min(107, Math.round(2 * k.r)));
+    const off = Math.floor((107 - size) / 2); // where knobComponent puts the picture inside its 107 px box
+    const x = Math.max(0, Math.min(1280 - 107, Math.round(k.cx - size / 2 - off)));
+    const y = Math.max(0, Math.min(628 - 107, Math.round(k.cy - size / 2 - off)));
+    pg.controls.push({ param: p.name, widget: "knob", size, bounds: [x, y, labels ? 278 : 107, 107], ...(labels ? {} : { nameSize: 0, valueSize: 0 }) });
+    placed++;
+  }
+  const qs = pg.controls.filter((c) => c.bounds && c.param).map((c) => c.param!).slice(0, 16);
+  pg.qlinks = [...qs, ...new Array(16 - qs.length).fill(null)];
+  return { doc: d, placed, unbound: knobs.length - placed, asset: name };
+}
+
 // ---- persistence -------------------------------------------------------------------------------
 export function serializeDoc(doc: Doc): string {
   return JSON.stringify({ skinStudio2: 1, ...doc }, null, 2);

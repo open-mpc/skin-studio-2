@@ -2,7 +2,8 @@
 // tabbed panels that follow the selection (right). Pure DOM; every change is an op on the main process's
 // Doc, which answers with fresh state (doc + a preview SVG per tab). No skin logic lives here that is not
 // in the tested src/app modules.
-import { lookStrip, stillImage, rotatedKnob, uploadedStrip, svgToPng, LOOK_NAMES, type Made } from "./assets.ts";
+import { lookStrip, stillImage, rotatedKnob, uploadedStrip, svgToPng, panelPicture, LOOK_NAMES, type Made } from "./assets.ts";
+import { findPanelControls } from "../../src/core/panelDetect.ts";
 
 type Spec = { nameSize?: number; valueSize?: number; size?: number; strip?: string; bounds?: number[]; empty?: boolean; text?: string; param?: string; widget?: string; overlay?: string; polarity?: string; full?: string; repeatCount?: number; meterDir?: string; visibleWhen?: { param: string; index?: number; choice?: string } };
 type Param = { name: string; kind: string; choices?: string[]; default?: number };
@@ -276,6 +277,22 @@ async function importSvgFlow(): Promise<void> {
   else if (st.warnings?.length) { V.panel = "checks"; render(); msg(`Imported with ${st.warnings.length} note(s) — see Checks.`); }
   else msg(r.art?.length ? `Imported, with artwork on ${r.art.length} page(s).` : "Layout imported.");
 }
+async function importPanelFlow(): Promise<void> {
+  if (!st.doc) return;
+  const f = await pickFile("image/*"); if (!f) return;
+  msg("Finding the controls…");
+  const pic = await panelPicture(f);
+  const found = findPanelControls(pic.rgba);
+  const knobs = found.filter((c) => c.kind === "knob");
+  if (!knobs.length) { msg("Ready."); return toast("No round controls found in that picture. Set it as the background (Images panel) and place knobs by hand."); }
+  const a = await ask("Import panel picture", `Found ${knobs.length} knob(s)${found.length > knobs.length ? ` and ${found.length - knobs.length} smaller round part(s) (jacks, LEDs: not placed)` : ""}. The picture becomes this page's background and each knob gets a control on the next parameter not yet on the page. Move or rebind them afterwards.`,
+    [{ id: "labels", label: "Names and values", type: "select", options: ["Hidden (the panel has its own)", "Shown"], value: "Hidden (the panel has its own)" }], "Import");
+  if (!a) { msg("Ready."); return; }
+  const r = await call("importPanel", { page, png: pic.png, knobs: knobs.map(({ cx, cy, r }) => ({ cx, cy, r })), labels: a.labels === "Shown" });
+  if (r.error) return;
+  sel = 0; render();
+  msg(`Panel imported: ${r.placed} knob(s) placed${r.unbound ? `, ${r.unbound} left out (no free parameter)` : ""}.`);
+}
 async function skinSetFlow(): Promise<void> {
   const r = await window.studio.call("skinSetPick");
   if (r.error) return toast(r.error);
@@ -310,6 +327,7 @@ function run(id: string): unknown {
     case "saveAs": return call("saveProject", { as: true });
     case "exportSvg": return call("exportSvg");
     case "importSvg": return importSvgFlow();
+    case "importPanel": return importPanelFlow();
     case "skinSet": return skinSetFlow();
     case "build": return call("build");
     case "install": return openInstall();
@@ -330,6 +348,7 @@ $("mOpen").addEventListener("click", () => showMenu($("mOpen"), [
 $("mShare").addEventListener("click", () => showMenu($("mShare"), [
   { label: "Export layout SVG…", hint: "Inkscape", act: () => run("exportSvg"), disabled: !st.doc },
   { label: "Import layout SVG…", act: () => run("importSvg"), disabled: !st.doc },
+  { label: "Import panel picture…", hint: "hardware photo", act: () => run("importPanel"), disabled: !st.doc },
   "-",
   { label: "Save project as…", hint: "Ctrl+Shift+S", act: () => run("saveAs"), disabled: !st.doc },
   { label: "Build skin set…", act: () => run("skinSet") },

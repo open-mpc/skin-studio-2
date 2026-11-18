@@ -33,6 +33,22 @@ export async function stillImage(file: File): Promise<Made> {
   return { png: b64(c), frames: 1, w: c.width, h: c.height };
 }
 
+/**
+ * A panel picture fitted into the 1280×628 page (aspect kept, centred on black): the PNG for the background and the
+ * page-size RGBA bytes for core/panelDetect.
+ */
+export async function panelPicture(file: File): Promise<{ png: string; rgba: Uint8ClampedArray }> {
+  const img = await loadImg(fileUrl(file));
+  const w0 = img.naturalWidth || 1280, h0 = img.naturalHeight || 628;
+  const s = Math.min(1280 / w0, 628 / h0), w = Math.round(w0 * s), h = Math.round(h0 * s);
+  const c = document.createElement("canvas"); c.width = 1280; c.height = 628;
+  const ctx = c.getContext("2d")!;
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, 1280, 628);
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(img, Math.floor((1280 - w) / 2), Math.floor((628 - h) / 2), w, h);
+  return { png: b64(c), rgba: ctx.getImageData(0, 0, 1280, 628).data };
+}
+
 /** A knob drawn pointing up, turned through 270° (v1 `img=`): `frames` rotated copies, minimum first. */
 export async function rotatedKnob(file: File, size = 96, frames = 64): Promise<Made> {
   const img = await loadImg(fileUrl(file));

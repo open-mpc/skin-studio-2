@@ -30,6 +30,8 @@ code-signed, so Windows SmartScreen will warn: *More info → Run anyway*.
   (a filmstrip whose frame follows a parameter) and page artwork drawn in Inkscape/Penpot, including artwork that shows
   **only in one mode** of a choice parameter.
 - **Q-Links:** pick what each of the 16 knobs turns on each page; focus rectangles are fitted for you.
+- **Import panel picture:** start a page from a photo or drawing of a hardware panel: it becomes the background and a
+  knob is placed on each round control found, bound to the next parameters (jacks and LEDs are found but not placed).
 - **Check** the built skin for touch targets, screen edges, Q-Link and option problems, and **preview** every tab with
   live values.
 - **Build** a `Plugin Skins/` folder, or **install** straight to a device over the network (only a plugin's own

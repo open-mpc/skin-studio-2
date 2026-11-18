@@ -25,7 +25,7 @@ const opened = () => { savedDoc = doc; pstate = new Map(); };
 const dirty = () => !!doc && doc !== savedDoc;
 const undo: D.Doc[] = [];
 const redo: D.Doc[] = [];
-const EDITS = new Set(["setControl", "swapSlots", "renamePage", "addPage", "addStrip", "removePage", "movePage", "renameParam", "setTheme", "makeFree", "moveControl", "addFreeControl", "removeControl", "setQlinks", "setQlinkBounds", "addAsset", "removeAsset", "setBackground", "addPlacedImage", "removePlacedImage", "movePlacedImage", "setStripForAll", "resizeControl", "setStyle", "importSvg", "moveControls", "alignControls", "distributeControls", "matchSize", "removeControls", "duplicateControls", "setImageMode", "setImageValueParam"]);
+const EDITS = new Set(["setControl", "swapSlots", "renamePage", "addPage", "addStrip", "removePage", "movePage", "renameParam", "setTheme", "makeFree", "moveControl", "addFreeControl", "removeControl", "setQlinks", "setQlinkBounds", "addAsset", "removeAsset", "setBackground", "addPlacedImage", "removePlacedImage", "movePlacedImage", "setStripForAll", "resizeControl", "setStyle", "importSvg", "moveControls", "alignControls", "distributeControls", "matchSize", "removeControls", "duplicateControls", "setImageMode", "setImageValueParam", "importPanel"]);
 
 function createWindow(): void {
   win = new BrowserWindow({
@@ -60,6 +60,7 @@ function menuTemplate(): MenuItemConstructorOptions[] {
       { type: "separator" },
       cmd("Export layout SVG…", "exportSvg"),
       cmd("Import layout SVG…", "importSvg"),
+      cmd("Import panel picture…", "importPanel"),
       cmd("Build skin set…", "skinSet"),
       { type: "separator" },
       cmd("Build Plugin Skins…", "build", "CmdOrCtrl+B"),
@@ -214,6 +215,7 @@ ipcMain.handle("studio:call", async (_e, op: string, a: any = {}) => {
       case "setImageMode": doc = D.setImageMode(doc!, a.page, a.index, a.when ?? null); return state();
       case "setImageValueParam": doc = D.setImageValueParam(doc!, a.page, a.index, a.param ?? null); return state();
       case "setStyle": doc = D.setStyle(doc!, a.style); return state();
+      case "importPanel": { const r = D.importPanel(doc!, a.page, a.png, a.knobs, !!a.labels); doc = r.doc; return state({ placed: r.placed, unbound: r.unbound }); }
       case "newTemplate": {
         const t = TEMPLATES[a.id]; if (!t) throw new Error("unknown template");
         doc = D.docFromUiJson({ params: t.params }, t.ui, t.plugin, a.theme); warnings = []; file = null; undo.length = 0; redo.length = 0; opened(); return state();
